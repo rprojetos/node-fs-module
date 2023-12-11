@@ -4,6 +4,12 @@ O FS (File System) é um módulo integrado do Node.js e permite a leitura, grava
 
 É um módulo amplamente utilizado em aplicativos Nodejs para tarefas que envolvem interação com o sistema de arquivos, como o armazenamento de arquivos de configuração, logs, arquivos de dados e muito mais. 
 
+Por ser nativo, basta importa-lo:
+
+```
+import fs from 'node:fs';
+```
+
 ### Métodos do módulo FS:
 
 * `fs.access()`: checa se o arquivo existe e se o Node.js pode acessá-lo com suas permissões atuais
@@ -37,7 +43,22 @@ Os métodos do módulo fs são assíncronos por padrão, podendo rodar de forma 
 
 Exemplo:
 
-| assíncrono     | sincrono            |
-| --------------- | ------------------- |
-| `fs.rename()` | `fs.renameSync()` |
-| `fs.write()`  | `fs.writeSync()`  |
+| assíncrono     | síncrono<br />(bloqueia execução<br />do código) |
+| --------------- | ---------------------------------------------------- |
+| `fs.rename()` | `fs.renameSync()`                                  |
+| `fs.write()`  | `fs.writeSync()`                                   |
+
+
+### Exemplos:
+
+1-verificando e criando um diretório se não existir.
+
+```typescript
+try {
+  if(!fs.existsSync(path.resolve('tmp'))){
+    fs.mkdirSync(path.resolve('tmp'));
+  }
+} catch (error) {
+  console.log(error);
+}
+```
