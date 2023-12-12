@@ -2,7 +2,7 @@
 
 O FS (File System) é um módulo integrado do Node.js e permite a leitura, gravação, exclusão e manipulação de arquivos e diretórios.
 
-É um módulo amplamente utilizado em aplicativos Nodejs para tarefas que envolvem interação com o sistema de arquivos, como o armazenamento de arquivos de configuração, logs, arquivos de dados e muito mais. 
+É um módulo amplamente utilizado em aplicativos Nodejs para tarefas que envolvem interação com o sistema de arquivos, como o armazenamento de arquivos de configuração, logs, arquivos de dados e muito mais.
 
 Por ser nativo, basta importa-lo:
 
@@ -48,17 +48,136 @@ Exemplo:
 | `fs.rename()` | `fs.renameSync()`                                  |
 | `fs.write()`  | `fs.writeSync()`                                   |
 
-
 ### Exemplos:
 
-1-verificando e criando um diretório se não existir.
+1- Verifica se um diretório existe:
 
-```typescript
-try {
-  if(!fs.existsSync(path.resolve('tmp'))){
-    fs.mkdirSync(path.resolve('tmp'));
-  }
-} catch (error) {
-  console.log(error);
-}
+```javascript
+fs.existsSync(path.resolve('tmp'));
 ```
+
+2- Cria um diretório:
+
+```javascript
+fs.mkdirSync(path.resolve('tmp'));
+```
+
+3- Verifica se um arquivo existe, e se não existir cria e insere um conteudo:
+
+```javascript
+const pathFile = path.resolve('tmp', 'arquivo.txt');
+    if (!fs.existsSync(pathFile)){
+        const content = 
+        'O arquivo foi criado com sucesso!\nLinha 2 do arquivo\nLinha 3 do arquivo';
+        fs.writeFileSync(pathFile, content, 'utf8');
+  }
+```
+
+4- Realiza a leitura de um arquivo, e acrescenta um novo conteúdo nesse arquivo:
+
+```javascript
+const pathFile = path.resolve('tmp', 'arquivo.txt');
+const fileData = fs.readFileSync(pathFile, 'utf8');
+  
+  const newFileData = `${fileData}\nAdicionado linha 4 no arquivo`;
+
+  fs.writeFileSync(pathFile, newFileData, 'utf8');
+
+  console.log(fs.readFileSync(pathFile, 'utf8'));
+```
+
+5- Renomeia um arquivo, se ele existir:
+
+```javascript
+if(fs.existsSync(path.resolve('tmp'))){
+    fs.renameSync(path.resolve('tmp'), path.resolve('tmp-test'));
+  }
+```
+
+6-  Retorna um array com todos os arquivos e subdiretórios, que estão dentro do diretório passado no caminho.
+
+```javascript
+console.log(fs.readdirSync(path.resolve('tmp')));
+```
+
+7- Remove um arquivo ou um link simbólico:
+
+```javascript
+fs.unlinkSync(path.resolve('tmp-test', 'arquivo-test.txt'));
+```
+
+8- Remove um diretório, se este estiver vazio:
+
+```javascript
+fs.rmdirSync(path.resolve('tmp-test'));
+```
+
+9- Remove arquivos e/ou diretórios recursivamente:
+
+```javascript
+fs.rmSync(path.resolve('tmp-test'), { recursive: true });
+```
+
+
+## Conteúdo do repositório:
+
+---
+* Typescript com NodeJS
+* Prettier
+* Eslint
+* Jest
+---
+## Typescript com NodeJS
+
+Iniciando uma aplicação NodeJs utilizando Typescript como base:
+
+```js
+  // Typescript
+  npm i -D typescript @types/node tsx tsup
+```
+
+---
+
+## Prettier
+
+O Prettier é uma ferramenta de formatação de código que ajuda a manter a consistência e a legibilidade do código em projetos de desenvolvimento de software.
+
+Ele é amplamente utilizado em várias linguagens de programação/marcadores, incluindo JavaScript, TypeScript, CSS, HTML, JSON e muito mais.
+
+```js
+  // Prettier
+  npm i -D prettier
+```
+
+---
+
+## Eslint
+
+O ESLint é uma ferramenta de análise de código estática amplamente utilizada na comunidade de desenvolvimento de software.
+
+Ele é projetado para ajudar os desenvolvedores a identificar e corrigir problemas de qualidade, erros de sintaxe e padrões de código inconsistentes em projetos JavaScript e TypeScript.
+
+```js
+  // Eslint
+  npm i -D eslint
+  npm i -D eslint-config-prettier eslint-plugin-prettier eslint-plugin-import
+  npm i -D @typescript-eslint/eslint-plugin @typescript-eslint/parser
+```
+
+---
+
+## Jest
+
+O Jest é um framework de testes de JavaScript amplamente utilizado para testar aplicativos e bibliotecas JavaScript.
+
+Ele foi desenvolvido para ser fácil de configurar e usar, fornecendo uma ampla gama de recursos para escrever testes automatizados.
+
+```js
+  // Jest
+  npm i -D jest ts-jest @types/jest
+  npx ts-jest config:init
+```
+
+---
+
+Por ♥ Ricardo Poleto 👋 [Linkedin!](https://www.linkedin.com/in/ricardo-poleto/)
